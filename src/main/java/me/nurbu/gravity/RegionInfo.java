@@ -2,11 +2,11 @@ package me.nurbu.gravity;
 
 import java.util.Objects;
 
-public class RegionManager {
+public class RegionInfo {
     private final String id;
     private final int priority;
 
-    RegionManager(String id, int priority) {
+    RegionInfo(String id, int priority) {
         this.id = id;
         this.priority = priority;
     }
@@ -22,8 +22,8 @@ public class RegionManager {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof RegionManager)) return false;
-        RegionManager temp = (RegionManager) o;
+        if (!(o instanceof RegionInfo)) return false;
+        RegionInfo temp = (RegionInfo) o;
         return temp.id.equals(this.id) && this.priority == temp.priority;
     }
 
@@ -31,4 +31,6 @@ public class RegionManager {
     public int hashCode() {
         return Objects.hash(id, priority);
     }
+
+
 }
