@@ -1,6 +1,5 @@
 package me.nurbu.gravity;
 
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.World;
 
 import java.util.HashMap;
@@ -8,8 +7,8 @@ import java.util.Map;
 import java.util.UUID;
 
 public class RegionHolder {
-    private Map<UUID, ProtectedRegion> worlds = new HashMap<>();
-    private Map<UUID, RegionInfo> Regions = new HashMap<>();
+    private final Map<UUID, World> worlds = new HashMap<>();
+    private final Map<UUID, RegionInfo> Regions = new HashMap<>();
     private final UUID id;
     private final World world;
     private final RegionInfo region;
@@ -21,7 +20,11 @@ public class RegionHolder {
     }
 
     public void addRegion() {
-        
+        Regions.put(id, region);
+    }
+
+    public void addWorld() {
+        worlds.put(id, world);
     }
 
 

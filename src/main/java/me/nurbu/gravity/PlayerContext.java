@@ -14,7 +14,6 @@ import java.util.UUID;
 
 public class PlayerContext {
     Player player;
-    private final UUID PlayerId = player.getUniqueId();
     RegionContainer WGC;
 
     public PlayerContext(Player player, RegionContainer WGC) {
@@ -22,20 +21,36 @@ public class PlayerContext {
         this.WGC = WGC;
     }
 
-    public void initaladd() {
+    public void initialAdd() {
         Location loc = player.getLocation();
         World world = player.getWorld();
+        UUID playerId = player.getUniqueId();
         BlockVector3 wePos = BukkitAdapter.asBlockVector(loc);
         RegionManager regions = WGC.get(BukkitAdapter.adapt(world));
-        ApplicableRegionSet set = regions.getApplicableRegions(wePos);
-        ProtectedRegion current = null;
-        for (ProtectedRegion region : set) {
-            if (current == null || current.getPriority() < region.getPriority()) {
-                current = region;
+        RegionInfo playerCuRegion;
+        if (regions != null) {
+            ApplicableRegionSet set = regions.getApplicableRegions(wePos);
+            ProtectedRegion current = null;
+            for (ProtectedRegion region : set) {
+                if (current == null || current.getPriority() < region.getPriority()) {
+                    current = region;
+                } else if (current.getPriority() == region.getPriority()) {
+                    if (current.getParent() == null) current = region;
+                }
+
             }
-            RegionInfo PlayerCuRegion = new RegionInfo(current.getId(), current.getPriority());
-            RegionHolder held = new RegionHolder(PlayerId, world, PlayerCuRegion);
-            held.addRegion();
+            String id = current.getId();
+            int priority = current.getPriority();
+            playerCuRegion = new RegionInfo(id, priority);
+
+        } else {
+            playerCuRegion = new RegionInfo("Global", 0);
         }
+
+        RegionHolder held = new RegionHolder(playerId, world, playerCuRegion);
+        held.addRegion();
+        held.addWorld();
+
     }
+
 }

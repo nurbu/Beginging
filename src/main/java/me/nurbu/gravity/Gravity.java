@@ -7,12 +7,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Gravity extends JavaPlugin {
 
-    private RegionContainer WGC;
-
-
     @Override
     public void onEnable() {
-        WGC = WorldGuard.getInstance().getPlatform().getRegionContainer();
+        RegionContainer WGC = WorldGuard.getInstance().getPlatform().getRegionContainer();
         getServer().getPluginManager().registerEvents(new Listener(WGC), this);
 
     }

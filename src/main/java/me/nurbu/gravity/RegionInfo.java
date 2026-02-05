@@ -23,8 +23,8 @@ public class RegionInfo {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof RegionInfo)) return false;
-        RegionInfo temp = (RegionInfo) o;
-        return temp.id.equals(this.id) && this.priority == temp.priority;
+        RegionInfo tempRegion = (RegionInfo) o;
+        return tempRegion.id.equals(this.id) && this.priority == tempRegion.priority;
     }
 
     @Override

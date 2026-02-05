@@ -17,7 +17,8 @@ public class Listener implements org.bukkit.event.Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        PlayerContext Tracker = new PlayerContext(player, RegionContainer WGC);
+        PlayerContext Tracker = new PlayerContext(player, WGC);
+        Tracker.initialAdd();
 
 
     }
