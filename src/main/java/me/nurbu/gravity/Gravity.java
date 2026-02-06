@@ -11,7 +11,7 @@ public final class Gravity extends JavaPlugin {
     public void onEnable() {
         RegionContainer WGC = WorldGuard.getInstance().getPlatform().getRegionContainer();
         getServer().getPluginManager().registerEvents(new Listener(WGC), this);
-
+        getCommand("checkRegion").setExecutor(new CheckCommand());
     }
 
     @Override

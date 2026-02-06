@@ -3,3 +3,11 @@ version: '0.1.0-SNAPSHOT'
 main: me.nurbu.gravity.Gravity
 api-version: '1.21'
 depend: [ WorldEdit,WorldGuard ]
+commands:
+  checkRegion:
+    description: "Check if my region logic is working properly"
+    usage: "/checkRegion"
+    aliases: [ crt ]
+    permission: checkregion.command.crt
+    permission-message: "You don't have access bum!!"
+

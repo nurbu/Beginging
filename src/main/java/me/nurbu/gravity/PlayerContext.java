@@ -13,8 +13,8 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 public class PlayerContext {
-    Player player;
-    RegionContainer WGC;
+    private final Player player;
+    private final RegionContainer WGC;
 
     public PlayerContext(Player player, RegionContainer WGC) {
         this.player = player;
@@ -35,14 +35,15 @@ public class PlayerContext {
                 if (current == null || current.getPriority() < region.getPriority()) {
                     current = region;
                 } else if (current.getPriority() == region.getPriority()) {
-                    if (current.getParent() == null) current = region;
+                    if (region.getParent() == current) current = region;
                 }
 
             }
-            String id = current.getId();
-            int priority = current.getPriority();
-            playerCuRegion = new RegionInfo(id, priority);
-
+            if (current != null) {
+                String id = current.getId();
+                int priority = current.getPriority();
+                playerCuRegion = new RegionInfo(id, priority);
+            } else playerCuRegion = new RegionInfo("Global", 0);
         } else {
             playerCuRegion = new RegionInfo("Global", 0);
         }
