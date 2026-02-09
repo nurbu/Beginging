@@ -2,6 +2,7 @@ package me.nurbu.gravity;
 
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.regions.Regions;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
@@ -21,7 +22,7 @@ public class PlayerContext {
         this.WGC = WGC;
     }
 
-    public void initialAdd() {
+    public void checkCuLocation() {
         Location loc = player.getLocation();
         World world = player.getWorld();
         UUID playerId = player.getUniqueId();
@@ -47,11 +48,12 @@ public class PlayerContext {
         } else {
             playerCuRegion = new RegionInfo("Global", 0);
         }
+        updateLocation(playerId, world, playerCuRegion);
+    }
 
+    public void updateLocation(UUID playerId, World world, RegionInfo playerCuRegion) {
         RegionHolder held = new RegionHolder(playerId, world, playerCuRegion);
-        held.addRegion();
-        held.addWorld();
-
+        if (Regions.contains)
     }
 
 }

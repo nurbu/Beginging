@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class RegionHolder {
     private final Map<UUID, World> worlds = new HashMap<>();
-    private final static Map<UUID, RegionInfo> Regions = new HashMap<>();
+    private final Map<UUID, RegionInfo> Regions = new HashMap<>();
     private final UUID id;
     private final World world;
     private final RegionInfo region;
