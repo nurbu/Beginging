@@ -11,9 +11,18 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class CheckCommand implements CommandExecutor, TabExecutor {
+    private final Map<UUID, RegionInfo> playerRegions;
+    private final Map<UUID, World> playerWorlds;
+
+    public CheckCommand(Map<UUID, RegionInfo> playerRegions, Map<UUID, World> worlds) {
+        this.playerRegions = playerRegions;
+        this.playerWorlds = worlds;
+    }
+
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] strings) {
         if (!(commandSender instanceof Player)) {
@@ -22,11 +31,10 @@ public class CheckCommand implements CommandExecutor, TabExecutor {
         }
         Player player = (Player) commandSender;
         UUID id = player.getUniqueId();
-        World world = player.getWorld();
-        RegionInfo info = new RegionInfo("Earth", 5);
-        RegionHolder held = new RegionHolder(id, world, info);
-        String M = held.getRegion(id);
-        commandSender.sendMessage(M);
+        RegionHolder held = new RegionHolder(playerRegions, playerWorlds);
+        String R = held.getRegion(id);
+        String W = held.getWorld(id);
+        commandSender.sendMessage(R + " " + W);
         return true;
     }
 

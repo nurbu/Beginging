@@ -26,6 +26,20 @@ public class PlayerContext {
         this.WGC = WGC;
     }
 
+    public void movementCheck(Location to, Location from) {
+        boolean playerMoved;
+        if (to != null) {
+            playerMoved = !(to.getBlockX() == from.getBlockX() && to.getBlockY() == from.getBlockY() && to.getBlockY() == from.getBlockY());
+        } else {
+            playerMoved = false;
+        }
+
+        if (playerMoved) {
+            checkCuLocation();
+        }
+
+    }
+
     public void checkCuLocation() {
         Location loc = player.getLocation();
         World world = player.getWorld();
@@ -56,9 +70,22 @@ public class PlayerContext {
     }
 
     private void updateLocation(UUID playerId, World world, RegionInfo playerCuRegion) {
-        RegionHolder held = new RegionHolder(playerRegions, playerWorlds, playerId, world, playerCuRegion);
-        if (playerRegions.containsKey(playerId)) {
+        playerRegions.put(playerId, playerCuRegion);
+        playerWorlds.put(playerId, world);
+        /*if (playerRegions.containsKey(playerId)) {
+            if (playerRegions.get(playerId).equals(playerCuRegion)) {
+                playerRegions.put(playerId, playerCuRegion);
+                playerWorlds.put(playerId, world);
+            }
+
+        } else {
+            playerRegions.put(playerId, playerCuRegion);
         }
+        */
+
+
+
+        /*activate the gravity checker to see which gravity should apply to this person now.*/
     }
 
 }

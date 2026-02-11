@@ -32,15 +32,16 @@ public class Listener implements org.bukkit.event.Listener {
         Tracker.checkCuLocation();
     }
 
-    public void onMove(PlayerMoveEvent event) {
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         Location to = event.getTo();
         Location from = event.getFrom();
-        PlayerLocationComparator pl = new PlayerLocationComparator(player, to, from);
-        boolean moveStatus = pl.locationCheck();
-        if (!moveStatus) pl.updateRegion();
+        PlayerContext Tracker = new PlayerContext(playerRegions, playerWorlds, player, WGC);
+        Tracker.movementCheck(to, from);
     }
 
+    @EventHandler
     public void onTP(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
         UUID id = player.getUniqueId();
