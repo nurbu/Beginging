@@ -44,7 +44,10 @@ public class Listener implements org.bukkit.event.Listener {
     @EventHandler
     public void onTP(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
-        UUID id = player.getUniqueId();
+        UUID id = event.getPlayer().getUniqueId();
+        Location to = event.getTo();
+        PlayerContext Tracker = new PlayerContext(playerRegions, playerWorlds, player, WGC);
+        Tracker.tpCheck(id, to);
 
     }
 }

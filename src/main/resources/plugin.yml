@@ -2,7 +2,7 @@ name: Gravity
 version: '0.1.0-SNAPSHOT'
 main: me.nurbu.gravity.Gravity
 api-version: '1.21'
-depend: [ WorldEdit,WorldGuard ]
+depend: [ WorldEdit, WorldGuard ]
 commands:
   checkRegion:
     description: "Check if my region logic is working properly"

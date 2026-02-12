@@ -16,13 +16,13 @@ public class RegionHolder {
 
     }
 
-    public String getRegion(UUID goddid) {
-        RegionInfo val = playerRegions.get(goddid);
+    public String getRegion(UUID id) {
+        RegionInfo val = playerRegions.get(id);
         return val.getId();
     }
 
-    public String getWorld(UUID goddid) {
-        World val = playerWorlds.get(goddid);
+    public String getWorld(UUID id) {
+        World val = playerWorlds.get(id);
         return val.getName();
     }
 

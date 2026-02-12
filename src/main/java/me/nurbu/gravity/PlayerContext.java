@@ -40,6 +40,18 @@ public class PlayerContext {
 
     }
 
+    public void tpCheck(UUID id, Location to) {
+        boolean Tped;
+        if (to != null) {
+            World toWorld = to.getWorld();
+            if (playerWorlds.get(id) != toWorld ||) {
+                Tped = true;
+                checkCuLocation();
+            }
+        }
+
+    }
+
     public void checkCuLocation() {
         Location loc = player.getLocation();
         World world = player.getWorld();
