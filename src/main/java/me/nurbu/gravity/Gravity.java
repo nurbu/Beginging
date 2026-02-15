@@ -11,6 +11,7 @@ import java.util.UUID;
 
 
 public final class Gravity extends JavaPlugin {
+    // Database for every active user on server with UUID and World and RegionInfo.
     private final Map<UUID, World> playerWorlds = new HashMap<>();
     private final Map<UUID, RegionInfo> playerRegions = new HashMap<>();
 

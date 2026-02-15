@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import java.util.Map;
 import java.util.UUID;
 
+// Makes sure Player info Region and world Info is up to date.
 public class PlayerContext {
     private final Map<UUID, RegionInfo> playerRegions;
     private final Map<UUID, World> playerWorlds;
@@ -26,6 +27,7 @@ public class PlayerContext {
         this.WGC = WGC;
     }
 
+    //Checks to see if player moves and not just turns head.
     public void movementCheck(Location to, Location from) {
         boolean playerMoved;
         if (to != null) {
@@ -40,18 +42,22 @@ public class PlayerContext {
 
     }
 
-    public void tpCheck(UUID id, Location to) {
-        boolean Tped;
+    // If Player tps at all check new Region by calling checkCuLocation().
+    public void tpCheck(Location to) {
         if (to != null) {
-            World toWorld = to.getWorld();
-            if (playerWorlds.get(id) != toWorld ||) {
-                Tped = true;
-                checkCuLocation();
-            }
+            checkCuLocation();
         }
-
     }
 
+    /*
+    Main Region Checker/Updater.
+    Checks if there are any regions in that world.
+    ((If Yes then checks if that player's coordinates has regions in it.
+    If Yes then loop to check highest priority if priority tied checks to see which one is the child between the two tied.
+    If No then just stores the RegionInfo object as Id: Global with priority: 0. Then stores world as regular.)
+    If players coordinates has no regions within it also say Id: Global with Priority: 0.)
+    If world has no regions as at all meaning WorldGuard didn't create any regions again stores as using Global gravity.
+    */
     public void checkCuLocation() {
         Location loc = player.getLocation();
         World world = player.getWorld();
@@ -81,6 +87,11 @@ public class PlayerContext {
         updateLocation(playerId, world, playerCuRegion);
     }
 
+    //Accesses the Databases and fully updates them as well.
+    /*
+    Future Implementation
+    * Add gravity update too.
+    */
     private void updateLocation(UUID playerId, World world, RegionInfo playerCuRegion) {
         playerRegions.put(playerId, playerCuRegion);
         playerWorlds.put(playerId, world);

@@ -14,7 +14,7 @@ import java.util.UUID;
 
 
 public class Listener implements org.bukkit.event.Listener {
-
+    // Has Listeners for every movement
     private final Map<UUID, RegionInfo> playerRegions;
     private final Map<UUID, World> playerWorlds;
     private final RegionContainer WGC;
@@ -44,10 +44,9 @@ public class Listener implements org.bukkit.event.Listener {
     @EventHandler
     public void onTP(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
-        UUID id = event.getPlayer().getUniqueId();
         Location to = event.getTo();
         PlayerContext Tracker = new PlayerContext(playerRegions, playerWorlds, player, WGC);
-        Tracker.tpCheck(id, to);
+        Tracker.tpCheck(to);
 
     }
 }

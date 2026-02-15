@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class RegionHolder {
+    //Placeholder api holder helper to access Databases
     private final Map<UUID, RegionInfo> playerRegions;
     private final Map<UUID, World> playerWorlds;
 

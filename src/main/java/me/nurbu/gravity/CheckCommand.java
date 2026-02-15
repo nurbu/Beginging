@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+// Simple Command to check if Location in Databases are being updated properly when movement occurs.
+// Such as walking and tping.
 public class CheckCommand implements CommandExecutor, TabExecutor {
     private final Map<UUID, RegionInfo> playerRegions;
     private final Map<UUID, World> playerWorlds;
