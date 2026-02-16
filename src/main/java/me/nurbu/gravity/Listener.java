@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.Map;
@@ -48,5 +49,13 @@ public class Listener implements org.bukkit.event.Listener {
         PlayerContext Tracker = new PlayerContext(playerRegions, playerWorlds, player, WGC);
         Tracker.tpCheck(to);
 
+    }
+
+    @EventHandler
+    public void onLeave(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+        UUID id = player.getUniqueId();
+        playerRegions.remove(id);
+        playerWorlds.remove(id);
     }
 }
