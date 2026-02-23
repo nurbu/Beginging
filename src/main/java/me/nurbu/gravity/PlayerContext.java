@@ -95,20 +95,6 @@ public class PlayerContext {
     private void updateLocation(UUID playerId, World world, RegionInfo playerCuRegion) {
         playerRegions.put(playerId, playerCuRegion);
         playerWorlds.put(playerId, world);
-        /*if (playerRegions.containsKey(playerId)) {
-            if (playerRegions.get(playerId).equals(playerCuRegion)) {
-                playerRegions.put(playerId, playerCuRegion);
-                playerWorlds.put(playerId, world);
-            }
-
-        } else {
-            playerRegions.put(playerId, playerCuRegion);
-        }
-        */
-
-
-
-        /*activate the gravity checker to see which gravity should apply to this person now.*/
     }
 
 }
