@@ -2,6 +2,7 @@ package me.nurbu.gravity;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import java.util.Map;
 import java.util.UUID;
@@ -24,7 +25,18 @@ public class GravityModifier {
             playerTick.put(id, ticks);
 
             if (ticks >= 2) {
-                player.sendMessage("Gravity Active!");
+                Vector vel = player.getVelocity();
+                double gravityUp = 0.04;
+                double gravityDown = 0.06;
+                if (vel.getY() > 0) {
+                    vel.setY(vel.getY() + gravityUp);
+                } else {
+                    vel.setY(vel.getY() + gravityDown);
+                }
+                if (vel.getY() < -4.5) {
+                    vel.setY(-4.5);
+                }
+                player.setVelocity(vel);
             }
         }
     }
