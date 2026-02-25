@@ -28,9 +28,19 @@ public class GravityModifier {
                 Vector vel = player.getVelocity();
                 double gravityUp = 0.04;
                 double gravityDown = 0.06;
+                int normalTickTime = 10;
+                double normalAirDrag = 0.91;
                 if (vel.getY() > 0) {
+                    int totalTick = (int) Math.floor(0.42 / (0.08 + gravityUp));
+                    double result = Math.pow(0.91, (double) normalTickTime / totalTick);
+                    vel.setX(vel.getX() * (result / normalAirDrag));
+                    vel.setZ(vel.getZ() * (result / normalAirDrag));
                     vel.setY(vel.getY() + gravityUp);
                 } else {
+                    int totalTick = (int) Math.floor(0.42 / (0.08 + gravityDown));
+                    double result = Math.pow(0.91, (double) normalTickTime / totalTick);
+                    vel.setX(vel.getX() * (result / normalAirDrag));
+                    vel.setZ(vel.getZ() * (result / normalAirDrag));
                     vel.setY(vel.getY() + gravityDown);
                 }
                 if (vel.getY() < -4.5) {
