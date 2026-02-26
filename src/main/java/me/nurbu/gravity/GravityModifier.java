@@ -4,49 +4,34 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import java.util.Map;
 import java.util.UUID;
 
 public class GravityModifier {
-    private final Map<UUID, Integer> playerTick;
 
-    public GravityModifier(Map<UUID, Integer> playerTick) {
-        this.playerTick = playerTick;
-    }
+    private final double Vanilla_Gravity = 0.08;
+    private final double Vanilla_Air_Friction = 0.91;
+    private final double Moon_Gravity = 0.013;
+    private final double Max_Fall_speed = -1.2;
 
     public void Tick() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            UUID id = player.getUniqueId();
-            if (player.isOnGround()) {
-                playerTick.put(id, 0);
-            }
-            int ticks = playerTick.get(id);
-            ticks++;
-            playerTick.put(id, ticks);
 
-            if (ticks >= 2) {
-                Vector vel = player.getVelocity();
-                double gravityUp = 0.04;
-                double gravityDown = 0.06;
-                int normalTickTime = 10;
-                double normalAirDrag = 0.91;
-                if (vel.getY() > 0) {
-                    int totalTick = (int) Math.floor(0.42 / (0.08 + gravityUp));
-                    double result = Math.pow(0.91, (double) normalTickTime / totalTick);
-                    vel.setX(vel.getX() * (result / normalAirDrag));
-                    vel.setZ(vel.getZ() * (result / normalAirDrag));
-                    vel.setY(vel.getY() + gravityUp);
-                } else {
-                    int totalTick = (int) Math.floor(0.42 / (0.08 + gravityDown));
-                    double result = Math.pow(0.91, (double) normalTickTime / totalTick);
-                    vel.setX(vel.getX() * (result / normalAirDrag));
-                    vel.setZ(vel.getZ() * (result / normalAirDrag));
-                    vel.setY(vel.getY() + gravityDown);
-                }
-                if (vel.getY() < -4.5) {
-                    vel.setY(-4.5);
+            UUID id = player.getUniqueId();
+            Vector vel = player.getVelocity();
+
+            if (!player.isOnGround()) {
+
+                vel.setY(vel.getY() + Vanilla_Gravity - Moon_Gravity);
+
+                vel.setX(vel.getX() / Vanilla_Air_Friction);
+                vel.setZ(vel.getZ() / Vanilla_Air_Friction);
+
+                // --- Fall velocity Stopper ---
+                if (vel.getY() < Max_Fall_speed) {
+                    vel.setY(Max_Fall_speed);
                 }
                 player.setVelocity(vel);
+
             }
         }
     }

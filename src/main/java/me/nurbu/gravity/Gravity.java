@@ -21,7 +21,7 @@ public final class Gravity extends JavaPlugin {
         RegionContainer WGC = WorldGuard.getInstance().getPlatform().getRegionContainer();
         getServer().getPluginManager().registerEvents(new Listener(playerRegions, playerWorlds, WGC, playerTick), this);
         getCommand("checkRegion").setExecutor(new CheckCommand(playerRegions, playerWorlds));
-        GravityModifier Gravity = new GravityModifier(playerTick);
+        GravityModifier Gravity = new GravityModifier();
         getServer().getScheduler().runTaskTimer(this, Gravity::Tick, 1L, 1L);
     }
 
