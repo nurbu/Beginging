@@ -1,0 +1,116 @@
+{
+  "planets": [
+    {
+      "world": "world",
+      "regions": [
+        {
+          "regionName": "Grasslands",
+          "times": {
+            "morning": {
+              "gravityLevel": 0.067,
+              "maxFallSpeed": -1.2
+            },
+            "afternoon": {
+              "gravityLevel": 0.067,
+              "maxFallSpeed": -1.2
+            },
+            "nighttime": {
+              "gravityLevel": 0.070,
+              "maxFallSpeed": -1.2
+            }
+          }
+        },
+        {
+          "regionName": "Mountains",
+          "times": {
+            "morning": {
+              "gravityLevel": 0.072,
+              "maxFallSpeed": -1.4
+            },
+            "afternoon": {
+              "gravityLevel": 0.072,
+              "maxFallSpeed": -1.4
+            },
+            "nighttime": {
+              "gravityLevel": 0.075,
+              "maxFallSpeed": -1.4
+            }
+          }
+        },
+        {
+          "regionName": "Ocean",
+          "times": {
+            "morning": {
+              "gravityLevel": 0.045,
+              "maxFallSpeed": -0.8
+            },
+            "afternoon": {
+              "gravityLevel": 0.045,
+              "maxFallSpeed": -0.8
+            },
+            "nighttime": {
+              "gravityLevel": 0.050,
+              "maxFallSpeed": -0.8
+            }
+          }
+        }
+      ]
+    },
+    {
+      "world": "world_nether",
+      "regions": [
+        {
+          "regionName": "Basalt Flats",
+          "times": {
+            "morning": {
+              "gravityLevel": 0.055,
+              "maxFallSpeed": -1.0
+            },
+            "afternoon": {
+              "gravityLevel": 0.060,
+              "maxFallSpeed": -1.0
+            },
+            "nighttime": {
+              "gravityLevel": 0.055,
+              "maxFallSpeed": -1.0
+            }
+          }
+        },
+        {
+          "regionName": "Lava Sea",
+          "times": {
+            "morning": {
+              "gravityLevel": 0.080,
+              "maxFallSpeed": -1.5
+            },
+            "afternoon": {
+              "gravityLevel": 0.085,
+              "maxFallSpeed": -1.5
+            },
+            "nighttime": {
+              "gravityLevel": 0.080,
+              "maxFallSpeed": -1.5
+            }
+          }
+        },
+        {
+          "regionName": "Soul Sand Valley",
+          "times": {
+            "morning": {
+              "gravityLevel": 0.035,
+              "maxFallSpeed": -0.6
+            },
+            "afternoon": {
+              "gravityLevel": 0.035,
+              "maxFallSpeed": -0.6
+            },
+            "nighttime": {
+              "gravityLevel": 0.030,
+              "maxFallSpeed": -0.6
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

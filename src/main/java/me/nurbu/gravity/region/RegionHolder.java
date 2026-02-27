@@ -1,4 +1,4 @@
-package me.nurbu.gravity;
+package me.nurbu.gravity.region;
 
 import org.bukkit.World;
 

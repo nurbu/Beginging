@@ -1,6 +1,8 @@
 package me.nurbu.gravity;
 
 import com.sk89q.worldguard.protection.regions.RegionContainer;
+import me.nurbu.gravity.region.PlayerContext;
+import me.nurbu.gravity.region.RegionInfo;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -19,19 +21,16 @@ public class Listener implements org.bukkit.event.Listener {
     private final Map<UUID, RegionInfo> playerRegions;
     private final Map<UUID, World> playerWorlds;
     private final RegionContainer WGC;
-    private final Map<UUID, Integer> playerTick;
 
-    public Listener(Map<UUID, RegionInfo> playerRegions, Map<UUID, World> playerWorlds, RegionContainer WGC, Map<UUID, Integer> playerTick) {
+    public Listener(Map<UUID, RegionInfo> playerRegions, Map<UUID, World> playerWorlds, RegionContainer WGC) {
         this.playerRegions = playerRegions;
         this.playerWorlds = playerWorlds;
         this.WGC = WGC;
-        this.playerTick = playerTick;
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        playerTick.put(player.getUniqueId(), 0);
         PlayerContext Tracker = new PlayerContext(playerRegions, playerWorlds, player, WGC);
         Tracker.checkCuLocation();
 
@@ -60,6 +59,5 @@ public class Listener implements org.bukkit.event.Listener {
         UUID id = player.getUniqueId();
         playerRegions.remove(id);
         playerWorlds.remove(id);
-        playerTick.remove(id);
     }
 }
