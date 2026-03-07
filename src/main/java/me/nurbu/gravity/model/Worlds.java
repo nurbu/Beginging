@@ -4,11 +4,14 @@ import java.util.List;
 
 
 public class Worlds {
-    private final String world;
-    private final List<Regions> regions;
+    private String world;
+    private List<Regions> regions;
 
-    public Worlds(String world, List<Regions> regions) {
+    public void setWorld(String world) {
         this.world = world;
+    }
+
+    public void setRegions(List<Regions> regions) {
         this.regions = regions;
     }
 

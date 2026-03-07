@@ -1,14 +1,20 @@
 package me.nurbu.gravity.model;
 
 public class TimeOfDay {
-    private final GravityEffect Morning;
-    private final GravityEffect Afternoon;
-    private final GravityEffect Nighttime;
+    private GravityEffect Morning;
+    private GravityEffect Afternoon;
+    private GravityEffect Nighttime;
 
-    public TimeOfDay(GravityEffect Morning, GravityEffect Afternoon, GravityEffect Nighttime) {
-        this.Morning = Morning;
-        this.Afternoon = Afternoon;
-        this.Nighttime = Nighttime;
+    public void setMorning(GravityEffect morning) {
+        Morning = morning;
+    }
+
+    public void setAfternoon(GravityEffect afternoon) {
+        Afternoon = afternoon;
+    }
+
+    public void setNighttime(GravityEffect nighttime) {
+        Nighttime = nighttime;
     }
 
     public GravityEffect getMorning() {

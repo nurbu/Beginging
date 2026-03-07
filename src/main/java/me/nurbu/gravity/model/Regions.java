@@ -1,11 +1,14 @@
 package me.nurbu.gravity.model;
 
 public class Regions {
-    private final String regionName;
-    private final TimeOfDay times;
+    private String regionName;
+    private TimeOfDay times;
 
-    public Regions(String regionName, TimeOfDay times) {
+    public void setRegionName(String regionName) {
         this.regionName = regionName;
+    }
+
+    public void setTimes(TimeOfDay times) {
         this.times = times;
     }
 

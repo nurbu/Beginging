@@ -1,11 +1,17 @@
 package me.nurbu.gravity.model;
 
 public class GravityEffect {
-    private final double gravityLevel;
-    private final double maxFallSpeed;
+    private double gravityLevel;
+    private double maxFallSpeed;
 
-    public GravityEffect(double gravityLevel, double maxFallSpeed) {
+    public GravityEffect() {
+    }
+
+    public void setGravityLevel(double gravityLevel) {
         this.gravityLevel = gravityLevel;
+    }
+
+    public void setMaxFallSpeed(double maxFallSpeed) {
         this.maxFallSpeed = maxFallSpeed;
     }
 

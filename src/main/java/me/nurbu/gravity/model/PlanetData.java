@@ -4,9 +4,9 @@ import java.util.List;
 
 
 public class PlanetData {
-    private final List<Worlds> planets;
+    private List<Worlds> planets;
 
-    public PlanetData(List<Worlds> planets) {
+    public void setPlanets(List<Worlds> planets) {
         this.planets = planets;
     }
 
