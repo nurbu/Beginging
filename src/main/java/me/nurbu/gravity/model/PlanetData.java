@@ -1,10 +1,16 @@
 package me.nurbu.gravity.model;
 
-import lombok.Data;
-
 import java.util.List;
 
-@Data
+
 public class PlanetData {
-    private List<Worlds> planets;
+    private final List<Worlds> planets;
+
+    public PlanetData(List<Worlds> planets) {
+        this.planets = planets;
+    }
+
+    public List<Worlds> getPlanets() {
+        return planets;
+    }
 }

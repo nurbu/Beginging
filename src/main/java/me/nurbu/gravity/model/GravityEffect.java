@@ -1,9 +1,19 @@
 package me.nurbu.gravity.model;
 
-import lombok.Data;
-
-@Data
 public class GravityEffect {
-    private double gravityLevel;
-    private double maxFallSpeed;
+    private final double gravityLevel;
+    private final double maxFallSpeed;
+
+    public GravityEffect(double gravityLevel, double maxFallSpeed) {
+        this.gravityLevel = gravityLevel;
+        this.maxFallSpeed = maxFallSpeed;
+    }
+
+    public double getGravityLevel() {
+        return gravityLevel;
+    }
+
+    public double getMaxFallSpeed() {
+        return maxFallSpeed;
+    }
 }

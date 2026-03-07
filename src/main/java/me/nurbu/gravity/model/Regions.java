@@ -1,9 +1,19 @@
 package me.nurbu.gravity.model;
 
-import lombok.Data;
-
-@Data
 public class Regions {
-    private String regionName;
-    private TimeOfDay times;
+    private final String regionName;
+    private final TimeOfDay times;
+
+    public Regions(String regionName, TimeOfDay times) {
+        this.regionName = regionName;
+        this.times = times;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public TimeOfDay getTimes() {
+        return times;
+    }
 }

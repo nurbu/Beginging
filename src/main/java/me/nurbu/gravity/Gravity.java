@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import me.nurbu.gravity.commands.CheckCommand;
+import me.nurbu.gravity.model.GravityEffect;
 import me.nurbu.gravity.model.PlanetData;
 import me.nurbu.gravity.region.RegionInfo;
 import org.bukkit.World;
@@ -20,6 +21,7 @@ public final class Gravity extends JavaPlugin {
     // Database for every active user on server with UUID and World and RegionInfo.
     private final Map<UUID, World> playerWorlds = new HashMap<>();
     private final Map<UUID, RegionInfo> playerRegions = new HashMap<>();
+    private final Map<UUID, GravityEffect> playerGravity = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -29,7 +31,7 @@ public final class Gravity extends JavaPlugin {
             File file = new File(getDataFolder(), "Gravitys.json");
             ObjectMapper mapper = new ObjectMapper();
             PlanetData data = mapper.readValue(file, PlanetData.class);
-            GravityModifier gravityModifier = new GravityModifier(playerRegions, playerWorlds, data);
+            GravityModifier gravityModifier = new GravityModifier(playerRegions, playerWorlds, data, playerGravity);
             getServer().getScheduler().runTaskTimer(this, gravityModifier::Tick, 1L, 1L);
         } catch (IOException e) {
             getLogger().severe("Failed to Load Gravitys.json!! Gravity will not be applied");
@@ -37,7 +39,7 @@ public final class Gravity extends JavaPlugin {
         }
 
         getServer().getPluginManager().registerEvents(new Listener(playerRegions, playerWorlds, WGC), this);
-        getCommand("checkRegion").setExecutor(new CheckCommand(playerRegions, playerWorlds));
+        getCommand("checkRegion").setExecutor(new CheckCommand(playerRegions, playerWorlds, playerGravity));
 
 
     }
