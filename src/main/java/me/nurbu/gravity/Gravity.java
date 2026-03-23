@@ -31,15 +31,14 @@ public final class Gravity extends JavaPlugin {
             File file = new File(getDataFolder(), "Gravitys.json");
             ObjectMapper mapper = new ObjectMapper();
             PlanetData data = mapper.readValue(file, PlanetData.class);
+            getServer().getPluginManager().registerEvents(new Listener(playerRegions, playerWorlds, WGC), this);
+            getCommand("checkRegion").setExecutor(new CheckCommand(playerRegions, playerWorlds, playerGravity));
             GravityModifier gravityModifier = new GravityModifier(playerRegions, playerWorlds, data, playerGravity);
-            getServer().getScheduler().runTaskTimer(this, gravityModifier::Tick, 1L, 1L);
+            getServer().getScheduler().runTaskTimer(this, gravityModifier::tick, 1L, 1L);
         } catch (IOException e) {
             getLogger().severe("Failed to Load Gravitys.json!! Gravity will not be applied");
             getLogger().severe(e.getMessage());
         }
-
-        getServer().getPluginManager().registerEvents(new Listener(playerRegions, playerWorlds, WGC), this);
-        getCommand("checkRegion").setExecutor(new CheckCommand(playerRegions, playerWorlds, playerGravity));
 
 
     }

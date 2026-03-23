@@ -64,7 +64,7 @@ public class PlayerContext {
         UUID playerId = player.getUniqueId();
         BlockVector3 wePos = BukkitAdapter.asBlockVector(loc);
         RegionManager regions = WGC.get(BukkitAdapter.adapt(world));
-        RegionInfo playerCuRegion;
+        RegionInfo playerCuRegion = new RegionInfo("Global", 0);
         if (regions != null) {
             ApplicableRegionSet set = regions.getApplicableRegions(wePos);
             ProtectedRegion current = null;
@@ -80,9 +80,7 @@ public class PlayerContext {
                 String id = current.getId();
                 int priority = current.getPriority();
                 playerCuRegion = new RegionInfo(id, priority);
-            } else playerCuRegion = new RegionInfo("Global", 0);
-        } else {
-            playerCuRegion = new RegionInfo("Global", 0);
+            }
         }
         updateLocation(playerId, world, playerCuRegion);
     }

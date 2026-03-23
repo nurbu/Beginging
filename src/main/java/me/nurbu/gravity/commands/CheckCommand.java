@@ -1,8 +1,6 @@
 package me.nurbu.gravity.commands;
 
-import me.nurbu.gravity.CurrentEffect;
 import me.nurbu.gravity.model.GravityEffect;
-import me.nurbu.gravity.region.RegionHolder;
 import me.nurbu.gravity.region.RegionInfo;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -33,19 +31,23 @@ public class CheckCommand implements CommandExecutor, TabExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] strings) {
-        if (!(commandSender instanceof Player)) {
-            commandSender.sendMessage("Only real ggs can use this command AI looking ah");
+        if (!(commandSender instanceof Player player)) {
+            commandSender.sendMessage("Only players can use this command");
             return true;
         }
-        Player player = (Player) commandSender;
-        UUID id = player.getUniqueId();
-        RegionHolder held = new RegionHolder(playerRegions, playerWorlds);
-        CurrentEffect gravity = new CurrentEffect(playerGravity, id);
-        double CG = gravity.getEffect();
-        String R = held.getRegion(id);
-        String W = held.getWorld(id);
 
-        commandSender.sendMessage(R + " " + W + " " + CG);
+        UUID id = player.getUniqueId();
+        RegionInfo regionInfo = playerRegions.get(id);
+        World world = playerWorlds.get(id);
+        GravityEffect effect = playerGravity.get(id);
+
+        String regionDisplay = (regionInfo != null) ? regionInfo.getId() : "Not tracked yet";
+        String worldDisplay = (world != null) ? world.getName() : "Not tracked yet";
+        String gravityDisplay = (effect != null)
+                ? "Gravity: " + effect.getGravityLevel() + " MaxFall: " + effect.getMaxFallSpeed()
+                : "No active effect";
+
+        player.sendMessage("Region: " + regionDisplay + " | World: " + worldDisplay + " | " + gravityDisplay);
         return true;
     }
 

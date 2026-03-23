@@ -4,19 +4,19 @@ import java.util.List;
 
 
 public class Worlds {
-    private String world;
+    private String worldName;
     private List<Regions> regions;
 
     public void setWorld(String world) {
-        this.world = world;
+        this.worldName = world;
     }
 
     public void setRegions(List<Regions> regions) {
         this.regions = regions;
     }
 
-    public String getWorld() {
-        return world;
+    public String getWorldName() {
+        return worldName;
     }
 
     public List<Regions> getRegions() {

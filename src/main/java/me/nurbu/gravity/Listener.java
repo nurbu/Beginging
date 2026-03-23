@@ -1,6 +1,7 @@
 package me.nurbu.gravity;
 
 import com.sk89q.worldguard.protection.regions.RegionContainer;
+import me.nurbu.gravity.model.GravityEffect;
 import me.nurbu.gravity.region.PlayerContext;
 import me.nurbu.gravity.region.RegionInfo;
 import org.bukkit.Location;
@@ -22,10 +23,12 @@ public class Listener implements org.bukkit.event.Listener {
     private final Map<UUID, World> playerWorlds;
     private final RegionContainer WGC;
 
-    public Listener(Map<UUID, RegionInfo> playerRegions, Map<UUID, World> playerWorlds, RegionContainer WGC) {
+
+    public Listener(Map<UUID, RegionInfo> playerRegions, Map<UUID, World> playerWorlds, RegionContainer WGC, Map<UUID, GravityEffect> playerGravity) {
         this.playerRegions = playerRegions;
         this.playerWorlds = playerWorlds;
         this.WGC = WGC;
+        this.playergr
     }
 
     @EventHandler

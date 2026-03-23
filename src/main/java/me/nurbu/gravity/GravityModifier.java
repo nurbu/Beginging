@@ -6,10 +6,12 @@ import me.nurbu.gravity.model.Regions;
 import me.nurbu.gravity.model.Worlds;
 import me.nurbu.gravity.region.RegionInfo;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -17,25 +19,42 @@ public class GravityModifier {
 
     private final Map<UUID, World> playerWorlds;
     private final Map<UUID, RegionInfo> playerRegions;
-    private final PlanetData data;
+    private final Map<String, Map<String, Regions>> regionLookup = new HashMap<>();
     private final Map<UUID, GravityEffect> playerGravity;
 
     public GravityModifier(Map<UUID, RegionInfo> playerRegions, Map<UUID, World> playerWorlds, PlanetData data, Map<UUID, GravityEffect> playerGravity) {
         this.playerRegions = playerRegions;
         this.playerWorlds = playerWorlds;
-        this.data = data;
         this.playerGravity = playerGravity;
+        buildLookup(data);
     }
 
-    public void Tick() {
+    public void buildLookup(PlanetData data) {
+        for (Worlds world : data.getPlanets()) {
+            Map<String, Regions> regionMap = new HashMap<>();
+            for (Regions region : world.getRegions()) {
+                regionMap.put(region.getRegionName(), region);
+            }
+            regionLookup.put(world.getWorldName(), regionMap);
+        }
+
+    }
+
+    public void tick() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (!player.isOnGround()) {
                 UUID id = player.getUniqueId();
-                Vector vel = player.getVelocity();
 
+                if (player.isFlying() || player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
+                    continue;
+                Vector vel = player.getVelocity();
+                RegionInfo regionInfo = playerRegions.get(id);
+                if (regionInfo == null || regionInfo.getId().equals("Global")) continue;
                 GravityEffect effect = getGravityEffect(id);
-                playerGravity.put(id, effect);
-                applyGravity(vel, effect);
+                if (effect == null) continue;
+
+
+                applyGravity(id, vel, effect);
 
                 player.setVelocity(vel);
             }
@@ -48,36 +67,31 @@ public class GravityModifier {
 
         if (regionInfo == null || world == null) return null;
 
-        if (regionInfo.getId().equals("Global")) return null;
-
-        for (Worlds w : data.getPlanets()) {
-            if (w.getWorld().equals(world.getName())) {
-
-                for (Regions region : w.getRegions()) {
-                    if (region.getRegionName().equals(regionInfo.getId())) {
-
-                        long time = world.getTime();
-                        if (time < 8000) {
-                            return region.getTimes().getMorning();
-                        } else if (time < 16000) {
-                            return region.getTimes().getAfternoon();
-                        } else {
-                            return region.getTimes().getNighttime();
-                        }
-                    }
-                }
-            }
+        Map<String, Regions> worldRegions = regionLookup.get(world.getName());
+        if (worldRegions == null) {
+            return null;
+        }
+        Regions region = worldRegions.get(regionInfo.getId());
+        if (region == null) {
+            return null;
+        }
+        long time = world.getTime();
+        if (time < 8000) {
+            return region.getTimes().getMorning();
+        } else if (time < 16000) {
+            return region.getTimes().getAfternoon();
+        } else {
+            return region.getTimes().getNighttime();
         }
 
-        // World or region not found in JSON, fall back to vanilla
-        return null;
     }
 
-    private void applyGravity(Vector vel, GravityEffect effect) {
+    private void applyGravity(UUID id, Vector vel, GravityEffect effect) {
+        playerGravity.put(id, effect);
         // If effect is null use pure vanilla gravity
         double Vanilla_Air_Friction = 0.91;
-        double gravityLevel = (effect != null) ? effect.getGravityLevel() : 0;
-        double maxFallSpeed = (effect != null) ? effect.getMaxFallSpeed() : -3.92;
+        double gravityLevel = effect.getGravityLevel();
+        double maxFallSpeed = effect.getMaxFallSpeed();
 
         vel.setY(vel.getY() + gravityLevel);
         vel.setX(vel.getX() / Vanilla_Air_Friction);
